@@ -14,7 +14,7 @@ const db = pgp({
   user: process.env.DB_USER,
 });
 
-// // Test the connection with a query in terminal command -> node db.js
+// // Test the connection with a query in terminal command -> node d
 // db.any('SELECT NOW()') // Checking- testing the current time from the database
 //   .then((data) => {
 //     console.log('Connected to the database');
