@@ -4,11 +4,13 @@
   "scripts": {
     "server": "cd server && nodemon server.js",
     "client": "cd client && npm run dev",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "jest"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
     "globals": "^16.0.0",
-    "nodemon": "^2.0.20"
+    "jest": "^29.7.0",
+    "nodemon": "^3.1.9"
   }
 }
