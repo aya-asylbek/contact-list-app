@@ -2,12 +2,13 @@
   "name": "contact-list-app",
   "version": "1.0.0",
   "scripts": {
-    "server": "cd server && nodemon index.js",
+    "server": "cd server && nodemon server.js",
     "client": "cd client && npm run dev",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
+    "globals": "^16.0.0",
     "nodemon": "^2.0.20"
   }
 }
