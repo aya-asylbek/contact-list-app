@@ -1,0 +1,46 @@
+h1 {
+  /* //center my text header*/
+  text-align: center;  
+  font-family: "Arial", sans-serif;
+  color: #7231d4;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  height:200;
+}
+
+li {
+  background-color: #eee7f7;
+  padding: 15px;
+  margin: 50px;
+  /* shows corners more like oval --- border radius*/
+  border-radius: 70px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+  font-size: 1.5rem;
+  color: #c42496;
+}
+
+p {
+  font-size: 1rem;
+  color: #555555;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #007bff;
+}

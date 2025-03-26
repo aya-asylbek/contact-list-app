@@ -5,7 +5,7 @@ import db from "./db.js";
 config();
 
 const app = express();
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT;
 
 app.use(cors());
 app.use(json());
@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 app.get('/contacts', async (req, res) => {
     try {
         const contacts = await db.any('SELECT * FROM contacts');
-        console.log("Contacts fetched successfully:", contacts);
+        //console.log("Contacts fetched successfully:", contacts);
         res.json(contacts);
     } catch (err) {
         console.error('Error fetching contacts:', err);
