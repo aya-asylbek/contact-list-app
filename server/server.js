@@ -15,9 +15,46 @@ app.get('/', (req, res) => {
     res.send('Server is working!');
 });
 
+
+
+// Get Single Contact with Details (Combined Data)
+app.get('/contacts/:id', async (req, res) => {
+    try {
+        const contactId = req.params.id;
+
+        if (!/^\d+$/.test(contactId)) {
+            return res.status(400).json({ error: "Invalid ID format" });
+        }
+
+        // JOIN query combining both tables
+        const query = `
+            SELECT 
+                c.id, c.name, c.email, c.phone, c.notes,
+                cd.street, cd.city, cd.state, cd.zip_code, cd.profession
+            FROM contacts c
+            LEFT JOIN contact_details cd ON c.id = cd.contact_id
+            WHERE c.id = $1
+        `;
+
+        const contact = await db.oneOrNone(query, [contactId]);
+
+        if (!contact) {
+            return res.status(404).json({ error: "Contact not found" });
+        }
+
+        res.json(contact);
+    } catch (err) {
+        console.error('Error fetching contact:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
 //Getting all contacts 
 app.get('/contacts', async (req, res) => {
     try {
+
         const contacts = await db.any('SELECT * FROM contacts');
         //console.log("Contacts fetched successfully:", contacts);
         res.json(contacts);
@@ -29,16 +66,16 @@ app.get('/contacts', async (req, res) => {
 
 
 //Get only bi id 
-app.get('/contacts/:id', async (req, res) => {
-    try {
-        const contact = await db.oneOrNone('SELECT * FROM contacts WHERE id = $1', [req.params.id]);
-        if (!contact) return res.status(404).json({ error: 'Contact not found' });
-        res.json(contact);
-    } catch (err) {
-        console.error('Error fetching contact by ID:', err);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
+// app.get('/contacts/:id', async (req, res) => {
+//     try {
+//         const contact = await db.oneOrNone('SELECT * FROM contacts WHERE id = $1', [req.params.id]);
+//         if (!contact) return res.status(404).json({ error: 'Contact not found' });
+//         res.json(contact);
+//     } catch (err) {
+//         console.error('Error fetching contact by ID:', err);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 //adding  a new contact through form
 app.post('/contacts', async (req, res) => {
@@ -91,14 +128,6 @@ app.delete('/contacts/:id', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-
-
-
-
-
-
-
 
 //Start my  server
 app.listen(PORT, () => {
