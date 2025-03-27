@@ -5,7 +5,7 @@ import db from "./db.js";
 config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT|| 5001;
 
 app.use(cors());
 app.use(json());
@@ -27,6 +27,32 @@ app.get('/contacts', async (req, res) => {
     }
 });
   
+app.get('/contacts/:id', async (req, res) => {
+    try {
+        const contactId =req.params.id;
+        const contact = await db.oneOrNone('SELECT * FROM contacts WHERE id = $1',
+            [contactId]
+        );
+       
+        if (!contact) {
+            return res.status(404).json({ error: "Contact not found" });
+        }
+        res.json(contact);
+    } catch (err) {
+        console.error('Error fetching contacts:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+
+
+
+
+
+
+
 
 //Start my  server
 app.listen(PORT, () => {
