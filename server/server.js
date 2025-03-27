@@ -40,21 +40,44 @@ app.get('/contacts/:id', async (req, res) => {
     }
 });
 
-//ad a new contact
+//adding  a new contact through form
 app.post('/contacts', async (req, res) => {
     const { name, email, phone, notes } = req.body;
+
+    // Checkin for required fielsds - name and email 
+    if (!name || !email) {
+        return res.status(400).json({ error: 'Name and email are required' });
+    }
+
     try {
+        // Insert the new contact into the database
         const newContact = await db.one(
             'INSERT INTO contacts (name, email, phone, notes) VALUES ($1, $2, $3, $4) RETURNING *',
             [name, email, phone, notes]
         );
         res.status(201).json(newContact);
     } catch (err) {
+        //error handling
         console.error('Error adding contact:', err);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
 
+// Update a contact (make changes)
+app.put('/contacts/:id', async (req, res) => {
+    const { name, email, phone, notes } = req.body;
+    try {
+        const updatedContact = await db.oneOrNone(
+            'UPDATE contacts SET name=$2, email=$3, phone=$4, notes=$5 WHERE id=$1 RETURNING *',
+            [req.params.id, name, email, phone, notes]
+        );
+        if (!updatedContact) return res.status(404).json({ error: 'Contact not found' });
+        res.json(updatedContact);
+    } catch (err) {
+        console.error('Error updating contact:', err);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 
 
 
