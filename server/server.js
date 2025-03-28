@@ -77,15 +77,15 @@ app.get('/contacts', async (req, res) => {
 //     }
 // });
 
-//adding  a new contact through form
+//adding  a new contact through form , make sure there should be no slash \after word contacts!
 app.post('/contacts', async (req, res) => {
     const { name, email, phone, notes } = req.body;
 
     // Checkin for required fielsds - name and email 
-    if (!name || !email) {
+    if (!name || !email ) {
         return res.status(400).json({ error: 'Name and email are required' });
     }
-
+    
     try {
         // Insert the new contact into the database
         const newContact = await db.one(
