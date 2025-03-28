@@ -92,7 +92,7 @@ form {
 label {
   display: block;
   font-size: 1.1rem;
-  color: #9f481f;
+  color: #e596d8;
   margin-bottom: 10px;
 }
 
@@ -103,7 +103,7 @@ input[type="text"], input[type="email"], textarea {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
-  color: #24031e;
+  color: #3e0643;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -117,8 +117,8 @@ input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
 button {
   width: 100%;
   padding: 15px;
-  background-color: #ccb2f4;
-  color: #fff;
+  background-color: #e3c4ef;
+  color: #61447b;
   font-size: 1.2rem;
   border: none;
   border-radius: 8px;
@@ -131,7 +131,7 @@ button:hover {
 }
 
 button:disabled {
-  background-color: #c1b5e6;
+  background-color: #030a0271;
   cursor: not-allowed;
 }
 
@@ -147,7 +147,7 @@ ul {
 }
 
 li {
-  background-color: #eee7f7;
+  background-color: #e3d6f3;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -156,17 +156,17 @@ li {
 
 li:hover {
   transform: translateY(-8px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 15px rgba(112, 174, 20, 0.2);
 }
 
 h3 {
-  color: #c42496;
+  color: #ea17b5;
   font-size: 1.5rem;
   margin-bottom: 12px;
 }
 
 p {
-  color: #555;
+  color: #a2cf1c;
   font-size: 1rem;
 }
 
