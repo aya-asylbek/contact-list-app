@@ -1,29 +1,24 @@
 import React, { useState } from 'react';
 
 function CreateContact({ onCreateContact }) {
-  const [name, setName] = useState('');//  contacts 1 st table name
-  const [email, setEmail] = useState('');// contacts 1 st table email
-  const [phone, setPhone] = useState('');// contacts 1 st table phone
-  const [notes, setNotes] = useState('');// contacts 1 st table notes
-  // contact_details 2nd table joined by sql command to 1 st table contacts in server.js
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [notes, setNotes] = useState('');
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
   const [zipCode, setZipCode] = useState('');
   const [profession, setProfession] = useState('');
-  //check for error handling
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //checking required fields ,all other are optional
     if (!name.trim() || !email.trim()) {
       setError('Name and email are required');
       return;
     }
-
-    //Returning all for new contact
 
     const newContact = { 
       name, 
@@ -37,7 +32,6 @@ function CreateContact({ onCreateContact }) {
       profession 
     };
 
-    //fetching data
     try {
       const response = await fetch('http://localhost:5000/contacts', {
         method: 'POST',
@@ -53,7 +47,6 @@ function CreateContact({ onCreateContact }) {
       const createdContact = await response.json();
       onCreateContact(createdContact);
 
-      // Clear all fields
       setName('');
       setEmail('');
       setPhone('');
@@ -80,65 +73,92 @@ function CreateContact({ onCreateContact }) {
       {success && <div className="success">Contact created successfully!</div>}
       {error && <div className="error">Error: {error}</div>}
       <form onSubmit={handleSubmit}>
-        {/* Name, Email, Phone, Notes Fields from 1st table */}
-        <input
-          type="text"
-          placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <textarea
-          placeholder="Notes"
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-        ></textarea>
-
-        {/* Address Fields + profession-> from my 2nd table contact_details*/}
-        <input
-          type="text"
-          placeholder="Street"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="City"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="State"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Zip Code"
-          value={zipCode}
-          onChange={(e) => setZipCode(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="Profession"
-          value={profession}
-          onChange={(e) => setProfession(e.target.value)}
-        />
-
+        <div>
+          <label htmlFor="name">
+            Name <span style={{ color: 'red' }}>*</span>
+          </label>
+          <input
+            id="name"
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="email">
+            Email <span style={{ color: 'red' }}>*</span>
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="phone">Phone</label>
+          <input
+            id="phone"
+            type="text"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="notes">Notes</label>
+          <textarea
+            id="notes"
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+          ></textarea>
+        </div>
+        <div>
+          <label htmlFor="street">Street</label>
+          <input
+            id="street"
+            type="text"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="city">City</label>
+          <input
+            id="city"
+            type="text"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="state">State</label>
+          <input
+            id="state"
+            type="text"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="zipCode">Zip Code</label>
+          <input
+            id="zipCode"
+            type="text"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="profession">Profession</label>
+          <input
+            id="profession"
+            type="text"
+            value={profession}
+            onChange={(e) => setProfession(e.target.value)}
+          />
+        </div>
         <button type="submit">Add Contact</button>
       </form>
     </div>
