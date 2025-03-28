@@ -4,6 +4,11 @@ A full-stack PERN (PostgreSQL, Express, React, Node.js) application for managing
 
 ![PERN Stack](https://img.shields.io/badge/stack-PERN-00d8ff.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
+## Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Getting Started](#-getting-started)
+3. [Installation Instructions](#installation)
+4. [Demo](#demo)
 
 
 ## ✨ Features
@@ -142,4 +147,6 @@ Open a Pull Request
 
 📄 License
 Distributed under the MIT License. See LICENSE for more information.
+```
+### Demo
 
