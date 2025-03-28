@@ -1,75 +1,145 @@
-📱 Contact List App
-🚀 Overview
-The Contact List App is a simple and efficient way to manage and store your contacts. You can easily add, view, update, and delete contact information such as names, phone numbers, emails, and additional notes.
+# 📒 Contact List App
 
-🌟 Features
-➕ Add Contacts: Quickly add new contacts with key details (name, phone number, email, etc.).
+A full-stack PERN (PostgreSQL, Express, React, Node.js) application for managing contacts with detailed information.
 
-🔍 View Contacts: Search and view a full list of all stored contacts.
+![PERN Stack](https://img.shields.io/badge/stack-PERN-00d8ff.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
-✏️ Update Contacts: Edit any information for existing contacts.
 
-❌ Delete Contacts: Remove any contact you no longer need.
 
-🎨 User-Friendly UI: A clean and easy-to-use design for smooth navigation.
+## ✨ Features
 
-💻 Installation
-Clone the Repository: First, clone the project to your local machine:
+- 📝 Create contacts with personal and professional details
+- 👁️ View contact details with extended information
+- ✏️ Edit existing contacts
+- 🗑️ Delete contacts
+- 🔍 Input validation and error handling
+- 📁 Database backup/restore via pg_dump file
 
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/contact-list-app.git
-Install Dependencies: Navigate to the project directory and install the necessary packages:
+## 🛠️ Technologies Used
 
-bash
-Copy
-Edit
+| Category        | Technologies                                                                 |
+|-----------------|------------------------------------------------------------------------------|
+| **Frontend**    | React, React Router, HTML5, CSS3, React Testing Library                      |
+| **Backend**     | Node.js, Express, PostgreSQL, pg, CORS                                       |
+| **Development** | Vite, Nodemon, Jest, Supertest, Dotenv                                       |
+| **Database**    | PostgreSQL (with pg_dump backup)                                            |
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (v18+)
+- PostgreSQL (v15+)
+- npm (v9+)
+
+### Installation
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/aya-asylbek/contact-list-app
+
 cd contact-list-app
-npm install
-Run the App: Start the app locally using:
 
-bash
+
+Install dependencies
+
+
+cd server && npm install
+cd ../client && npm install
+
+Database Setup
+
+# Create database
+createdb contact_list
+
+# Import pg_dump file
+psql -U postgres contact_list < contact_list.dump
+
+Configure Environment Variables
+
+Create .env file in backend directory:
+
+env
 Copy
-Edit
+PG_HOST=localhost
+PG_PORT=5432
+PG_DATABASE=contact_list
+PG_USER=your username
+PG_PASSWORD=your_password
+
+Start the Application
+
+
+# Start server (from backend directory)
 npm start
-Access the App: Once the app is running, open your browser and go to:
 
-text
-Copy
-Edit
-http://localhost:3000
-🛠️ Technologies Used
-Frontend: HTML, CSS, JavaScript
+# Start client (from frontend directory)
 
-Backend: Node.js (if applicable)
+npm run dev
 
-Database: Local Storage or Firebase (depending on your app’s setup)
+📂 Database Schema
+sql
+
+-- contacts table
+CREATE TABLE contacts (
+  id SERIAL PRIMARY KEY,
+  first_name VARCHAR(50) NOT NULL,
+  last_name VARCHAR(50) NOT NULL,
+  email VARCHAR(100),
+  phone VARCHAR(20) NOT NULL,
+  notes TEXT
+);
+
+-- contact_details table
+CREATE TABLE contact_details (
+  contact_id INT PRIMARY KEY REFERENCES contacts(id) ON DELETE CASCADE,
+  street VARCHAR(100),
+  city VARCHAR(50),
+  state VARCHAR(50),
+  zip_code VARCHAR(20),
+  profession VARCHAR(100),
+  company VARCHAR(100),
+  met_note TEXT
+);
+
+🧪 Testing
+
+# tests
+cd server && npm test
+
+🌐 API Endpoints
+Method	Endpoint	Description
+GET	/contacts	Get all contacts
+POST /contacts	Create new contact
+GET	/contacts/:id	Get single contact
+PUT	/contacts/:id	Update contact
+DELETE /contacts/:id	Delete contact
+
+📦 Database Backup
+The included contact_list.dump file contains:
+
+Database schema structure
+
+Sample data (3 initial contacts)
+
+Related contact details
+
+To create a new dump:
+
+
+pg_dump -U postgres -Fc contact_list > contact_list.dump
 
 🤝 Contributing
-We love contributions! To help improve the app:
+Fork the project
 
-Fork the repository.
+Create your feature branch (git checkout -b feature/AmazingFeature)
 
-Create your own branch:
+Commit your changes (git commit -m 'Add some AmazingFeature')
 
-bash
-Copy
-Edit
-git checkout -b new-feature
-Commit your changes:
+Push to the branch (git push origin feature/AmazingFeature)
 
-bash
-Copy
-Edit
-git commit -am 'Add new feature'
-Push to your branch:
+Open a Pull Request
 
-bash
-Copy
-Edit
-git push origin new-feature
-Create a Pull Request.
+📄 License
+Distributed under the MIT License. See LICENSE for more information.
 
-📜 License
-This project is licensed under the MIT License. See the LICENSE file for more details.
