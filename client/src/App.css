@@ -2,7 +2,7 @@ h1 {
   /* //center my text header*/
   text-align: center;  
   font-family: "Arial", sans-serif;
-  color: #7231d4;
+  color: #83c314;
 }
 
 ul {
@@ -51,3 +51,160 @@ p {
 @media (min-width: 769px) {
   /* my  desktop style */
 }
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif; /* Modern font */
+}
+
+body {
+  background-color: #f4f4f9; /* Light background for less harsh contrast */
+  color: #333; /* Standard text color */
+  font-size: 16px; /* Base font size */
+  line-height: 1.5;
+}
+
+/* Center header with modern look */
+h1 {
+  text-align: center;
+  font-size: 3rem;
+  color: #955bed; /* Main accent color */
+  margin: 40px 0;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Form container */
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f1bff4;
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(206, 199, 6, 0.1);
+}
+
+/* Form input fields and labels */
+label {
+  display: block;
+  font-size: 1.1rem;
+  color: #9f481f;
+  margin-bottom: 10px;
+}
+
+input[type="text"], input[type="email"], textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: #24031e;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+  border-color: #d0b8f5;
+  box-shadow: 0 0 8px rgba(238, 233, 245, 0.3);
+}
+
+/* Form button */
+button {
+  width: 100%;
+  padding: 15px;
+  background-color: #ccb2f4;
+  color: #fff;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #5e28b7;
+}
+
+button:disabled {
+  background-color: #c1b5e6;
+  cursor: not-allowed;
+}
+
+/* List Items (Improved Visual) */
+ul {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 4px;
+}
+
+li {
+  background-color: #eee7f7;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+li:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+h3 {
+  color: #c42496;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+}
+
+p {
+  color: #555;
+  font-size: 1rem;
+}
+
+/* Error and Loading */
+.error, .loading {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 20px;
+}
+
+.error {
+  color: red;
+}
+
+.loading {
+  color: #007bff;
+}
+
+/* Responsive Design for Mobile */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  input[type="text"], input[type="email"], textarea {
+    font-size: 0.9rem;
+  }
+
+  button {
+    font-size: 1rem;
+  }
+
+  ul {
+    grid-template-columns: 1fr; /* Stacked list on small screens */
+  }
+}
+

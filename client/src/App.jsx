@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import './App.css';
-import Contacts from './components/Contacts'; 
-import ViewContact from './components/ViewContact'; 
-import CreateContact from './components/CreateContact'; 
+import Contacts from './components/Contacts';
+import ViewContact from './components/ViewContact';
+import CreateContact from './components/CreateContact';
 import EditContact from './components/EditContact';
 
 
@@ -32,21 +32,21 @@ function App() {
     fetchContacts();
   }, []);
 
-  
- //delete button adding (will be on each ID)
- const handleDelete = async (contactID) => {
-  try {
-    const response = await fetch(`http://localhost:5000/contacts/${contactID}`, {
-      method: 'DELETE',
-    });
-    if (!response.ok) {
-      throw new Error('Failed to delete contact');
+
+  //delete button adding (will be on each ID)
+  const handleDelete = async (contactID) => {
+    try {
+      const response = await fetch(`http://localhost:5000/contacts/${contactID}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error('Failed to delete contact');
+      }
+      setContacts(contacts.filter((contact) => contact.id !== contactID));
+    } catch (err) {
+      setError(err.message);
     }
-    setContacts(contacts.filter((contact) => contact.id !== contactID));
-  } catch (err) {
-    setError(err.message);
-  }
-};
+  };
 
   //call to backend to view contacts/by id `http://localhost:5000/contactID`
   //ind.contact use join + contact_details,save response {obj} and render response to a view contact
@@ -65,33 +65,33 @@ function App() {
       setError(err.message);
     }
   };
-  
-//create contact
+
+  //create contact
   const handleCreateContact = (newContact) => {
     setContacts([...contacts, newContact]); // Add new contact to the list
   };
 
- // Updating contact
- const handleUpdateContact = async (updatedContact) => {
-  console.log(updatedContact); 
-  try {
-    const response = await fetch(`http://localhost:5000/contacts/${updatedContact.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedContact),
-    });
-    
-    if (!response.ok) throw new Error('Update failed');
-    
-    const data = await response.json();
-    setContacts(contacts.map(contact => 
-      contact.id === updatedContact.id ? data : contact
-    ));
-    setEditingContact(null); // Закрываем режим редактирования
-  } catch (error) {
-    setError(error.message);
-  }
-};
+  // Updating contact
+  const handleUpdateContact = async (updatedContact) => {
+    console.log(updatedContact);
+    try {
+      const response = await fetch(`http://localhost:5000/contacts/${updatedContact.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedContact),
+      });
+
+      if (!response.ok) throw new Error('Update failed');
+
+      const data = await response.json();
+      setContacts(contacts.map(contact =>
+        contact.id === updatedContact.id ? data : contact
+      ));
+      setEditingContact(null);
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
 
   // Show error or loading message
@@ -106,22 +106,22 @@ function App() {
   return (
     <div>
       <h1>Contact List App</h1>
-      
-      {editingContact ? ( // Режим редактирования
-        <EditContact 
+
+      {editingContact ? ( ///editing
+        <EditContact
           contact={editingContact}
           onUpdate={handleUpdateContact}
           onCancel={() => setEditingContact(null)}
         />
-      ) : viewingContact ? ( // Режим просмотра
-        <ViewContact 
+      ) : viewingContact ? (
+        <ViewContact
           contact={viewingContact}
           onEdit={() => setEditingContact(viewingContact)}
           onBack={() => setViewingContact(null)}
         />
-      ) : ( // Основной режим
+      ) : ( // main 
         <>
-          <button onClick={() => setViewingContact(null)}>Back to Contacts</button>
+          <button onClick={() => setViewingContact(null)}></button>
           <Contacts
             contacts={contacts}
             onViewContact={handleViewContact}
@@ -141,30 +141,4 @@ export default App;
 
 
 
-
-//   return (
-//     <div>
-//       <h1>Contact List App</h1>
-
-//       {/* Button to 'Create Contact' view */}
-//       <button onClick={() => setViewingContact(null)}>Back to Contacts</button>
-
-//       {/* Show different views based on what we're doing */}
-//       {viewingContact ? (
-//         <ViewContact contact={viewingContact} /> // Show single contact view by id 
-//       ) : (
-//         <>
-//           <Contacts
-//             contacts={contacts}
-//             onViewContact={handleViewContact}//view contact details
-//             onDeleteContact={handleDelete} // Pass handleDelete
-//             />
-//           <CreateContact onCreateContact={handleCreateContact} /> {/* Form to create new contact */}
-//         </>
-//       )}
-//     </div>
-//   );
-// }
-
-// export default App;
 
