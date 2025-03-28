@@ -121,19 +121,61 @@ app.post('/contacts', async (req, res) => {
 
 // Update a contact (make changes)
 app.put('/contacts/:id', async (req, res) => {
-    const { name, email, phone, notes } = req.body;
+    const { id } = req.params;
+    const { name, email, phone, notes, street, city, state, zip_code, profession } = req.body;
+  
     try {
-        const updatedContact = await db.oneOrNone(
-            'UPDATE contacts SET name=$2, email=$3, phone=$4, notes=$5 WHERE id=$1 RETURNING *',
-            [req.params.id, name, email, phone, notes]
-        );
-        if (!updatedContact) return res.status(404).json({ error: 'Contact not found' });
-        res.json(updatedContact);
+      // Обновление основной информации
+      const updatedContact = await db.one(
+        'UPDATE contacts SET name=$1, email=$2, phone=$3, notes=$4 WHERE id=$5 RETURNING *',
+        [name, email, phone, notes, id]
+      );
+    //   console.log('Updated contact:', updatedContact);
+      // Обновление деталей
+      await db.none(
+        `UPDATE contact_details 
+         SET street=$1, city=$2, state=$3, zip_code=$4, profession=$5 
+         WHERE contact_id=$6`,
+        [street, city, state, zip_code, profession, id]
+      );
+      console.log('Updated contact details:', { street, city, state, zip_code, profession });//debug
+      // Получение объединенных данных
+      const fullContact = await db.one(`
+        SELECT c.*, cd.street, cd.city, cd.state, cd.zip_code, cd.profession 
+        FROM contacts c
+        LEFT JOIN contact_details cd ON c.id = cd.contact_id
+        WHERE c.id = $1
+      `, [id]);
+  
+      res.json(fullContact);
     } catch (err) {
-        console.error('Error updating contact:', err);
-        res.status(500).json({ error: 'Internal server error' });
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
     }
-});
+  });
+
+
+
+
+
+
+
+
+
+// app.put('/contacts/:id', async (req, res) => {
+//     const { name, email, phone, notes } = req.body;
+//     try {
+//         const updatedContact = await db.oneOrNone(
+//             'UPDATE contacts SET name=$2, email=$3, phone=$4, notes=$5 WHERE id=$1 RETURNING *',
+//             [req.params.id, name, email, phone, notes]
+//         );
+//         if (!updatedContact) return res.status(404).json({ error: 'Contact not found' });
+//         res.json(updatedContact);
+//     } catch (err) {
+//         console.error('Error updating contact:', err);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 
 // Delete a contact

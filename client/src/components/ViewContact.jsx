@@ -1,6 +1,4 @@
-import React from 'react';
-
-function ViewContact({ contact }) {
+function ViewContact({ contact, onEdit, onBack }) {
   return (
     <div>
       <h2>{contact.name}</h2>
@@ -9,8 +7,9 @@ function ViewContact({ contact }) {
       <p>Notes: {contact.notes}</p>
       <p>Address: {contact.street}, {contact.city}, {contact.state} {contact.zip_code}</p>
       <p>Profession: {contact.profession}</p>
+      <button onClick={onEdit}>Edit</button>
+      <button onClick={onBack}>Back</button>
     </div>
   );
 }
-
 export default ViewContact;
