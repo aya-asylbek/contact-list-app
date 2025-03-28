@@ -67,57 +67,58 @@ app.get('/contacts', async (req, res) => {
 
 //adding  a new contact through form , make sure there should be no slash \after word contacts!
 app.post('/contacts', async (req, res) => {
-    const { 
-      name, 
-      email, 
-      phone, 
-      notes,
-      street, 
-      city, 
-      state, 
-      zip_code, 
-      profession 
+    const {
+        name,
+        email,
+        phone,
+        notes,
+        street,
+        city,
+        state,
+        zip_code,
+        profession
     } = req.body;
-  
+
     if (!name || !email) {
-      return res.status(400).json({ error: 'Name and email are required' });
+        return res.status(400).json({ error: 'Name and email are required' });
     }
-  
+
     try {
-      // Use a transaction to ensure both inserts succeed or fail together
-      const newContact = await db.tx(async t => {
-        // 1. Insert into contacts
-        const contact = await t.one(
-          'INSERT INTO contacts (name, email, phone, notes) VALUES ($1, $2, $3, $4) RETURNING id',
-          [name, email, phone, notes]
-        );
-  
-        // 2. Insert into contact_details
-        await t.none(
-          `INSERT INTO contact_details 
+
+        // Use a transaction to ensure both inserts succeed or fail together
+        const newContact = await db.tx(async t => {
+            // 1. Insert into contacts
+            const contact = await t.one(
+                'INSERT INTO contacts (name, email, phone, notes) VALUES ($1, $2, $3, $4) RETURNING id',
+                [name, email, phone, notes]
+            );
+
+            // 2. Insert into contact_details
+            await t.none(
+                `INSERT INTO contact_details 
             (contact_id, street, city, state, zip_code, profession) 
             VALUES ($1, $2, $3, $4, $5, $6)`,
-          [contact.id, street, city, state, zip_code, profession]
-        );
-  
-        return contact.id;
-      });
-  
-      // Fetch the full contact with details to return 1 st table+2nd table
-      const fullContact = await db.one(`
+                [contact.id, street, city, state, zip_code, profession]
+            );
+
+            return contact.id;
+        });
+
+        // Fetch the full contact with details to return 1 st table+2nd table
+        const fullContact = await db.one(`
         SELECT c.*, cd.street, cd.city, cd.state, cd.zip_code, cd.profession 
         FROM contacts c
         LEFT JOIN contact_details cd ON c.id = cd.contact_id
         WHERE c.id = $1
       `, [newContact]);
-  
-      res.status(201).json(fullContact);
+
+        res.status(201).json(fullContact);
     } catch (err) {
-      console.error('Error adding contact:', err);
-      res.status(500).json({ error: 'Internal server error' });
+        console.error('Error adding contact:', err);
+        res.status(500).json({ error: 'Internal server error' });
     }
-  });
-  
+});
+
 
 // Update a contact (make changes)
 app.put('/contacts/:id', async (req, res) => {
@@ -125,21 +126,23 @@ app.put('/contacts/:id', async (req, res) => {
     const { name, email, phone, notes, street, city, state, zip_code, profession } = req.body;
   
     try {
-      // Обновление основной информации
+      // Update the main contact information
       const updatedContact = await db.one(
         'UPDATE contacts SET name=$1, email=$2, phone=$3, notes=$4 WHERE id=$5 RETURNING *',
         [name, email, phone, notes, id]
       );
-    //   console.log('Updated contact:', updatedContact);
-      // Обновление деталей
+      console.log('Updated contact:', updatedContact);
+      // Update the contact details
       await db.none(
         `UPDATE contact_details 
          SET street=$1, city=$2, state=$3, zip_code=$4, profession=$5 
          WHERE contact_id=$6`,
         [street, city, state, zip_code, profession, id]
       );
-      console.log('Updated contact details:', { street, city, state, zip_code, profession });//debug
-      // Получение объединенных данных
+  
+      console.log('Updated contact details:', { street, city, state, zip_code, profession }); // Debug log
+  
+      // Fetch the full contact with details (combining both tables)
       const fullContact = await db.one(`
         SELECT c.*, cd.street, cd.city, cd.state, cd.zip_code, cd.profession 
         FROM contacts c
@@ -147,12 +150,23 @@ app.put('/contacts/:id', async (req, res) => {
         WHERE c.id = $1
       `, [id]);
   
-      res.json(fullContact);
+      // Send the updated contact data back to the client
+      res.json(fullContact); // This is where you send the updated data back to the client
+      
+      console.log('Full updated contact:', fullContact);
+
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Internal server error' });
     }
   });
+  
+//         res.json(fullContact);
+//     } catch (err) {
+//         console.error(err);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
 
 
 

@@ -44,3 +44,10 @@ p {
   font-size: 1.2rem;
   color: #007bff;
 }
+@media (max-width: 768px) {
+  /* my mobile styles */
+}
+
+@media (min-width: 769px) {
+  /* my  desktop style */
+}
