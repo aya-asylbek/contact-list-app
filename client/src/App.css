@@ -25,12 +25,12 @@ li {
 
 h3 {
   font-size: 1.5rem;
-  color: #c42496;
+  color: #171091;
 }
 
 p {
   font-size: 1rem;
-  color: #555555;
+  color: #dc3097;
 }
 
 .error {
@@ -80,11 +80,11 @@ h1 {
 
 /* Form container */
 form {
-  max-width: 500px;
+  max-width: 400px;
   margin: 0 auto;
   padding: 20px;
   background-color: #f1bff4;
-  border-radius: 10px;
+  border-radius: 5px;
   box-shadow: 0 10px 20px rgba(206, 199, 6, 0.1);
 }
 
@@ -92,7 +92,7 @@ form {
 label {
   display: block;
   font-size: 1.1rem;
-  color: #e596d8;
+  color: #f859dd;
   margin-bottom: 10px;
 }
 
@@ -103,7 +103,7 @@ input[type="text"], input[type="email"], textarea {
   border: 1px solid #ddd;
   border-radius: 8px;
   font-size: 1rem;
-  color: #3e0643;
+  color: #45124a;
   box-sizing: border-box;
   transition: all 0.3s ease;
 }
@@ -118,7 +118,7 @@ button {
   width: 100%;
   padding: 15px;
   background-color: #e3c4ef;
-  color: #61447b;
+  color: #924bd4;
   font-size: 1.2rem;
   border: none;
   border-radius: 8px;
@@ -127,7 +127,7 @@ button {
 }
 
 button:hover {
-  background-color: #5e28b7;
+  background-color: #b391ea;
 }
 
 button:disabled {

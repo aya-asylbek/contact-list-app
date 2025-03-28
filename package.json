@@ -21,6 +21,7 @@
     "concurrently": "^9.1.2",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "nodemon": "^3.1.9"
+    "nodemon": "^3.1.9",
+    "vite": "^6.2.3"
   }
 }
