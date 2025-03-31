@@ -15,6 +15,10 @@ A full-stack PERN (PostgreSQL, Express, React, Node.js) application for managing
 - 🔍 Input validation and error handling
 - 📁 Database backup/restore via pg_dump file
 
+
+https://github.com/user-attachments/assets/30138452-0f90-4f57-a169-aef3644312ba
+
+
 ## 🛠️ Technologies Used
 
 | Category        | Technologies                                                                 |
