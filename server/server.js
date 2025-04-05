@@ -5,7 +5,7 @@ import db from "./db.js";
 config();
 
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT||5001;
 
 app.use(cors());
 app.use(json());

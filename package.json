@@ -23,5 +23,10 @@
     "jest-environment-jsdom": "^29.7.0",
     "nodemon": "^3.1.9",
     "vite": "^6.2.3"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    }
   }
 }
